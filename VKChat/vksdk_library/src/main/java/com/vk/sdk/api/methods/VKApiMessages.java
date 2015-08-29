@@ -90,6 +90,9 @@ public class VKApiMessages extends VKApiBase {
         return "messages";
     }
 
+
+    //Written by me
+    //Request "Send" Msg
     public VKRequest mySendingMsgMethod(VKParameters params) {
         return prepareRequest("send", params, new VKParser() {
             @Override
@@ -99,6 +102,20 @@ public class VKApiMessages extends VKApiBase {
             }
         });
     }
+
+    //Request "History" Msg
+    public VKRequest myGetMsgHistoryMethod(VKParameters params) {
+        return prepareRequest("getHistory", params, new VKParser() {
+            @Override
+            public Object createModel(JSONObject object) {
+                Log.d("object json", object.toString());
+                return new VKApiGetMessagesResponse(object);
+            }
+        });
+    }
+
+
+
 
 
 }

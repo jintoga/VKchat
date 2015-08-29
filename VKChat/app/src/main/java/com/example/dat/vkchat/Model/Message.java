@@ -7,14 +7,16 @@ public class Message {
     private String body;
     private int id;
     private int user_id;
+    private int from_id;
 
     public Message() {
     }
 
-    public Message(String body, int id, int user_id) {
+    public Message(String body, int id, int user_id, int from_id) {
         this.body = body;
         this.id = id;
         this.user_id = user_id;
+        this.from_id = from_id;
     }
 
     public String getBody() {
@@ -39,5 +41,13 @@ public class Message {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public int getFrom_id() {
+        return from_id;
+    }
+
+    public void setFrom_id(int from_id) {
+        this.from_id = from_id;
     }
 }

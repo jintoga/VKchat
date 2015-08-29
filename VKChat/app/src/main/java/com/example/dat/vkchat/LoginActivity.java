@@ -42,6 +42,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class LoginActivity extends AppCompatActivity {
+
+
+    private Contact currentUser;
     private static final String[] sMyScope = new String[]{
             VKScope.FRIENDS,
             VKScope.WALL,
@@ -80,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Fragment fragment;
     private FragmentTransaction fragmentTransaction;
+
 
     private void setEvents() {
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
@@ -269,8 +273,10 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("jsonArray", jsonArray.toString());
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     Log.d("jsonObject", jsonObject.toString());
+                    int cur_user_id = jsonObject.getInt("id");
                     String first_name = jsonObject.getString("first_name");
                     String last_name = jsonObject.getString("last_name");
+                    String full_name = first_name + " " + last_name;
                     Log.d("Name", first_name);
                     String photo_url = "";
                     if (jsonObject.getString("photo_200") != null) {
@@ -281,7 +287,12 @@ public class LoginActivity extends AppCompatActivity {
                         Picasso.with(getApplicationContext()).load(R.drawable.vk_avatar).into(imageViewAvatar);
                     }
                     textViewName.setText(first_name + " " + last_name);
-
+                    Contact curUser = new Contact();
+                    curUser.setName(full_name);
+                    curUser.setAvatar_url(photo_url);
+                    curUser.setIsOnline(1);
+                    curUser.setUser_id(cur_user_id);
+                    setCurrentUser(curUser);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -300,6 +311,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
                 super.onProgress(progressType, bytesLoaded, bytesTotal);
+
             }
         });
     }
@@ -328,7 +340,7 @@ public class LoginActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject joContact = jsonArray.getJSONObject(i);
                         Log.d("joContact", joContact.toString());
-
+                        int user_id = joContact.getInt("id");
                         String first_name = joContact.getString("first_name");
                         String last_name = joContact.getString("last_name");
                         String full_name = first_name + " " + last_name;
@@ -337,7 +349,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (joContact.isNull("photo_200") == false) {
                             avatar_url = joContact.getString("photo_200");
                         }
-                        Contact contact = new Contact(full_name, avatar_url, status);
+                        Contact contact = new Contact(user_id, full_name, avatar_url, status);
                         contacts.add(contact);
                     }
                     Log.d("contacts size", contacts.size() + "");
@@ -424,5 +436,12 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public Contact getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(Contact currentUser) {
+        this.currentUser = currentUser;
+    }
 
 }

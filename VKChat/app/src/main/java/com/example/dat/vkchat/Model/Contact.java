@@ -1,10 +1,13 @@
 package com.example.dat.vkchat.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by DAT on 8/26/2015.
  */
-public class Contact {
+public class Contact implements Serializable {
 
+    private int user_id;
     private String name;
     private String avatar_url;
     private int isOnline;
@@ -12,10 +15,11 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(String name, String avatar_url, int isOnline) {
+    public Contact(int user_id, String name, String avatar_url, int isOnline) {
         this.name = name;
         this.avatar_url = avatar_url;
         this.isOnline = isOnline;
+        this.user_id = user_id;
     }
 
     public String getName() {
@@ -40,5 +44,13 @@ public class Contact {
 
     public void setIsOnline(int isOnline) {
         this.isOnline = isOnline;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }
