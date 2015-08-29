@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/nav_view_items_gr1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/Home"
+            android:checked="false"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/Contacts"
+            android:checked="false"
+            android:icon="@drawable/ic_contacts_black_24dp"
+            android:title="Contacts" />
+        <item
+            android:id="@+id/Chat"
+            android:checked="false"
+            android:icon="@drawable/ic_chat_black_24dp"
+            android:title="Conversations" />
+
+
+    </group>
+
+    <group android:id="@+id/nav_view_items_gr2">
+        <item
+            android:id="@+id/Settings"
+            android:checked="false"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Settings" />
+
+    </group>
+</menu>

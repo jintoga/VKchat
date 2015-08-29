@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/dat/vkchat/Adapters" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/dat/vkchat/Fragments" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/dat/vkchat/Fragments/FragmentChat.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/dat/vkchat/LoginActivity.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/dat/vkchat/Model" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/dat/vkchat/MyApplication.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/dat/vkchat/RoundedTransformation.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-ldrtl-hdpi" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-ldrtl-mdpi" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-ldrtl-xhdpi" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-ldrtl-xxhdpi" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-ldrtl-xxxhdpi" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/boy.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/vk_avatar.gif" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/custom_item_contact.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_contacts.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_login.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_logout.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/nav_view_header.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/menu/drawer.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/vksdk_library" charset="windows-1251" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

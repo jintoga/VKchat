@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">VKChat</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <integer name="com_vk_sdk_AppId">5046074</integer>
+
+    <string name="openDrawer">Open</string>
+    <string name="closeDrawer">Closed</string>
+</resources>
