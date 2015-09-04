@@ -1,8 +1,6 @@
 package com.example.dat.vkchat.Adapters;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -10,16 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
-import com.example.dat.vkchat.Fragments.FragmentChat;
+import com.example.dat.vkchat.Fragments.FragmentContacts;
+import com.example.dat.vkchat.Fragments.FragmentConversations;
 import com.example.dat.vkchat.LoginActivity;
 import com.example.dat.vkchat.Model.Contact;
 import com.example.dat.vkchat.R;
-import com.example.dat.vkchat.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,11 +29,13 @@ public class CustomContactsAdapter extends RecyclerView.Adapter<CustomContactsAd
     private ArrayList<Contact> contacts;
     private LayoutInflater inflater;
     private Context context;
+    FragmentContacts fragmentContacts;
 
     public CustomContactsAdapter(Context context, ArrayList<Contact> listModels) {
         inflater = LayoutInflater.from(context);
         this.contacts = listModels;
         this.context = context;
+        this.fragmentContacts = fragmentContacts;
     }
 
     @Override
@@ -70,20 +67,25 @@ public class CustomContactsAdapter extends RecyclerView.Adapter<CustomContactsAd
             @Override
             public void onClick(View v) {
                 Log.d("CLICK", contacts.get(position).getName());
-                goToChat(contacts.get(position));
+                ((LoginActivity) context).addFriendToConversations(contacts.get(position));
+                //goToChat(contacts.get(position));
             }
         });
 
     }
 
+    static FragmentConversations fragmentTest;
+
     private void goToChat(Contact receiver) {
+        //Put receiver for chat item
         Bundle bundle = new Bundle();
-        bundle.putSerializable("contact", receiver);
-        android.support.v4.app.FragmentTransaction fragmentTransaction = ((LoginActivity) context).getSupportFragmentManager().beginTransaction();
-        FragmentChat fragmentChat = new FragmentChat();
-        fragmentChat.setArguments(bundle);
-        fragmentTransaction.replace(R.id.frameContainer, fragmentChat);
-        fragmentTransaction.commit();
+        bundle.putSerializable("data", receiver);
+        fragmentTest = getFragmentTest();
+        fragmentTest.setArguments(bundle);
+       /* android.support.v4.app.FragmentTransaction fragmentTransaction = ((LoginActivity) context).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameContainer, fragmentTest);
+
+        fragmentTransaction.commit();*/
 
     }
 
@@ -97,7 +99,6 @@ public class CustomContactsAdapter extends RecyclerView.Adapter<CustomContactsAd
         }
     }
 
-    private static int clickedPosition;
 
     public static class ViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/ {
         TextView textViewContactName, textViewStatus;
@@ -113,20 +114,14 @@ public class CustomContactsAdapter extends RecyclerView.Adapter<CustomContactsAd
             floatingActionButtonChat = (FloatingActionButton) itemView.findViewById(R.id.floatingActionButtonChat);
         }
 
-       /* @Override
-        public void onClick(View view) {
-            clickedPosition = getAdapterPosition();
-            if (view instanceof ImageView) {
-                mListener.onImageViewClick((ImageView) view);
-            } else {
-                mListener.onTextViewClick((TextView) view);
-            }
-        }
-
-        public static interface MyViewHolderClicks {
-            public void onImageButtonClick(ImageView callerImage);
-
-
-        }*/
     }
+
+    public FragmentConversations getFragmentTest() {
+        if (fragmentTest == null)
+            return new FragmentConversations();
+        else
+            return fragmentTest;
+    }
+
+
 }

@@ -20,7 +20,7 @@ import java.util.Observer;
 
 public class FragmentContacts extends Fragment {
 
-    private ArrayList<Contact> contacts;
+    private static ArrayList<Contact> contacts;
     private RecyclerView recyclerViewContacts;
     private CustomContactsAdapter mAdapter;
 
@@ -43,10 +43,7 @@ public class FragmentContacts extends Fragment {
     }
 
     private void setEvents() {
-        contacts = ((LoginActivity) getActivity()).getContacts();
-        mAdapter = new CustomContactsAdapter(getActivity(), contacts);
-        recyclerViewContacts.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+
     }
 
     public void clearContactsList() {
@@ -55,5 +52,14 @@ public class FragmentContacts extends Fragment {
             mAdapter.notifyDataSetChanged();
     }
 
+    public ArrayList<Contact> getContacts() {
+        return contacts;
+    }
 
+    public void setContacts(ArrayList<Contact> contacts) {
+        this.contacts = contacts;
+        mAdapter = new CustomContactsAdapter(getActivity(), contacts);
+        recyclerViewContacts.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
 }

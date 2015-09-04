@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.dat.vkchat.Fragments.FragmentChat;
 import com.example.dat.vkchat.Fragments.FragmentContacts;
+import com.example.dat.vkchat.Fragments.FragmentConversations;
 import com.example.dat.vkchat.Model.Contact;
 import com.squareup.picasso.Picasso;
 import com.vk.sdk.VKAccessToken;
@@ -38,8 +37,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -64,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         getIDs();
         setEvents();
         showLogin();
@@ -79,10 +76,16 @@ public class LoginActivity extends AppCompatActivity {
 
         imageViewAvatar = (ImageView) findViewById(R.id.imageViewProfile);
         textViewName = (TextView) findViewById(R.id.textView_username);
+        fragmentContacts = (FragmentContacts) this.getSupportFragmentManager().findFragmentById(R.id.fragmentContactsInMain);
+        fragmentTest = (FragmentConversations) this.getSupportFragmentManager().findFragmentById(R.id.fragmentTestInMain);
+
+        fragmentManager.beginTransaction().hide(fragmentContacts).commit();
+        fragmentManager.beginTransaction().hide(fragmentTest).commit();
     }
 
-    private Fragment fragment;
-    private FragmentTransaction fragmentTransaction;
+    private static FragmentContacts fragmentContacts = null;
+    private static FragmentConversations fragmentTest = null;
+    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
 
     private void setEvents() {
@@ -91,14 +94,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
-                toolbar.setTitle("Closed");
+                //toolbar.setTitle("Closed");
                 super.onDrawerClosed(drawerView);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
-                toolbar.setTitle("Open");
+                //toolbar.setTitle("Open");
                 super.onDrawerOpened(drawerView);
             }
         };
@@ -118,16 +121,23 @@ public class LoginActivity extends AppCompatActivity {
                     menuItem.setChecked(true);
                 }
                 drawerLayout.closeDrawers();
-
+                toolbar.setTitle(menuItem.getTitle());
                 switch (menuItem.getItemId()) {
                     case R.id.Home:
                         //fragment = new FragmentHome();
                         break;
                     case R.id.Contacts:
-                        fragment = new FragmentContacts();
+                        /*fragment = new FragmentContacts();*/
+
+                        if (fragmentContacts.getContacts() == null) {
+                            fragmentContacts.setContacts(getContacts());
+                        }
+                        fragmentManager.beginTransaction().show(fragmentContacts).commit();
+                        fragmentManager.beginTransaction().hide(fragmentTest).commit();
                         break;
                     case R.id.Chat:
-                        fragment = new FragmentChat();
+                        fragmentManager.beginTransaction().hide(fragmentContacts).commit();
+                        fragmentManager.beginTransaction().show(fragmentTest).commit();
                         break;
                     case R.id.Settings:
                         //fragment = new FragmentSettings();
@@ -135,12 +145,19 @@ public class LoginActivity extends AppCompatActivity {
                     default:
                         break;
                 }
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frameContainer, fragment);
-                fragmentTransaction.commit();
+                //fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                //fragmentTransaction.replace(R.id.frameContainer, fragment);
+                //fragmentTransaction.commit();
                 return true;
             }
         });
+    }
+
+    public void addFriendToConversations(Contact receiver) {
+        fragmentTest.addFriendToChat(receiver);
+        toolbar.setTitle("Conversations");
+        fragmentManager.beginTransaction().hide(fragmentContacts).commit();
+        fragmentManager.beginTransaction().show(fragmentTest).commit();
     }
 
     private void showLogin() {
@@ -208,11 +225,11 @@ public class LoginActivity extends AppCompatActivity {
         textViewName.setText("User");
         if (contacts != null)
             contacts.clear();
-        FragmentContacts fragmentContacts = (FragmentContacts) this.getSupportFragmentManager().findFragmentById(R.id.frameContainer);
+        /*FragmentContacts fragmentContacts = (FragmentContacts) this.getSupportFragmentManager().findFragmentById(R.id.frameContainer);
         if (fragmentContacts != null) {
             Log.d("FR", fragmentContacts.toString());
             fragmentContacts.clearContactsList();
-        }
+        }*/
     }
 
     @Override
@@ -223,7 +240,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (res != null) {
                     setUserData();
                     requestContacts();
-                    requestMessages();
+                    requestMessagesDialogs();
                     showLogout();
                 } else {
                     showLogin();
@@ -247,7 +264,7 @@ public class LoginActivity extends AppCompatActivity {
         if (VKSdk.isLoggedIn()) {
             setUserData();
             requestContacts();
-            requestMessages();
+            requestMessagesDialogs();
             showLogout();
         } else {
             showLogin();
@@ -376,7 +393,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void requestMessages() {
+    private void requestMessagesDialogs() {
         VKRequest request = VKApi.messages().getDialogs(VKParameters.from(VKApiConst.OUT, "1", VKApiConst.COUNT, "200"));
 
         request.secure = false;
@@ -443,5 +460,15 @@ public class LoginActivity extends AppCompatActivity {
     public void setCurrentUser(Contact currentUser) {
         this.currentUser = currentUser;
     }
+
+    /*@Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            //this.finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        } else {
+            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    }*/
 
 }

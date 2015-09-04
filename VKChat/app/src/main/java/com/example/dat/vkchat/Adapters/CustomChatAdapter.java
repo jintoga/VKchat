@@ -85,8 +85,8 @@ public class CustomChatAdapter extends BaseAdapter {
         Contact cur = ((LoginActivity) context).getCurrentUser();
         Message re = getItem(position);
 
-        Log.d("1", ((LoginActivity) context).getCurrentUser().getUser_id() + "");
-        Log.d("2", getItem(position).getUser_id() + "");
+       /* Log.d("1", ((LoginActivity) context).getCurrentUser().getUser_id() + "");
+        Log.d("2", getItem(position).getUser_id() + "");*/
 
         if (((LoginActivity) context).getCurrentUser().getUser_id() == getItem(position).getFrom_id()) {
             Picasso.with(context).load(((LoginActivity) context).getCurrentUser().getAvatar_url()).into(viewHolder.avatar);

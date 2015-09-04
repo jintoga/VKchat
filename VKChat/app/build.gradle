@@ -21,11 +21,12 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:+'
-    compile 'com.android.support:design:+'
-    compile 'com.android.support:cardview-v7:+'
-    compile 'com.android.support:recyclerview-v7:+'
-    compile 'de.hdodenhof:circleimageview:1.3.0'
     compile project(':vksdk_library')
+    compile 'com.android.support:appcompat-v7:23.0.0'
+    compile 'com.android.support:design:23.0.0'
+    compile 'com.android.support:cardview-v7:23.0.0'
+    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'de.hdodenhof:circleimageview:1.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.android.gms:play-services:7.8.0'
 }
